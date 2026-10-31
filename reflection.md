@@ -5,12 +5,23 @@
 **a. Initial design**
 
 - Briefly describe your initial UML design.
+
+My initial UML design is built around three actions: adding a pet, scheduling a walk, and seeing today's tasks. The Owner is the starting point because the owner needs access to all of this information. The Owner owns many pets, each Pet has many tasks, and the Owner uses one Scheduler to manage the tasks. A walk is just a Task with its type set to "walk," which keeps the design simple.
+
 - What classes did you include, and what responsibilities did you assign to each?
+
+I included four classes: Owner, Pet, Task, and Scheduler. The Owner adds pets, schedules walks, and views today's tasks by passing those requests to the Scheduler. The Pet stores its name, species, age, and its own list of tasks. The Task represents one care activity and can mark itself complete and check if it is due today. The Scheduler holds all the tasks and is responsible for adding them, finding today's tasks, and sorting them by time.
+
 
 **b. Design changes**
 
 - Did your design change during implementation?
+
+Yes, my design changed after I reviewed the UML against my class skeleton. I found that a task did not know which pet it belonged to, and the scheduler could not build a daily plan based on limits.
+
 - If yes, describe at least one change and why you made it.
+
+The first change was adding a pet_name attribute to the Task class. Before this, a Pet could see its tasks, but a Task could not point back to its pet, so today's task list could show "Walk at 8:00" without saying whose walk it was. The second change was adding a time budget for the day. I gave the Owner an available_minutes attribute, changed priority from text to a number (1 is high and 3 is low), and added a build_daily_plan method to the Scheduler. This lets the scheduler choose the most important tasks that fit in the owner's day, which the app needs in order to build a real plan.
 
 ---
 
