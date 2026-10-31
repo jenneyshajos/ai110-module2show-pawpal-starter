@@ -99,11 +99,8 @@ All scheduling logic lives in `pawpal_system.py`.
 | Feature | Method(s) | Notes |
 |---------|-----------|-------|
 | Sorting | `Scheduler.sort_by_time()`, `time_key()` | Combines every pet's tasks into one list sorted by `(scheduled_time, priority)`: earliest first, and the higher-priority task first when two start at the same time. Sorts fresh on each call, so it stays correct even if a task's time is changed later. |
-------------------------------------
 | Filtering| `Scheduler.filter_tasks()`, `Scheduler.get_todays_tasks()`| `filter_tasks(pet_name=, completed=, task_type=)` returns tasks in time order that match every filter given; filters left out are ignored, so `filter_tasks(pet_name="Rex", completed=False)` gives Rex's unfinished tasks. `get_todays_tasks()` keeps only tasks due today.|
-------------------------------------
 | Conflict Handling| `Task.overlaps()`, `Scheduler.find_conflicts()`, `Scheduler.conflict_warnings()`, `Scheduler.add_task_with_warning()`| Two tasks conflict when each starts before the other ends (back-to-back tasks do not). `find_conflicts()` checks every pair of today's unfinished tasks for the same pet or different pets. `conflict_warnings()` turns each clash into a message like `Same pet (Mia): 'Dinner' and 'Evening meds' both start at 05:00 PM`. `add_task_with_warning()` checks only the new task and returns a warning instead of crashing; the task is still added.|
-------------------------------------
 | Recurring tasks| `Scheduler.complete_task()`, `Task.mark_complete()`| Completing a task marks it done and, using `timedelta`, creates the next occurrence for the same pet: `"daily"` is today + 1 day, `"weekly"` is today + 7 days, at the same time of day; `"once"` does not repeat. A task completed early repeats from its own date, so no duplicate is made.|
 
 ## 📸 Demo Walkthrough
