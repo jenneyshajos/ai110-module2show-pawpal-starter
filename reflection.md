@@ -32,10 +32,16 @@ The first change was adding a pet_name attribute to the Task class. Before this,
 - What constraints does your scheduler consider (for example: time, priority, preferences)?
 - How did you decide which constraints mattered most?
 
+
 **b. Tradeoffs**
 
 - Describe one tradeoff your scheduler makes.
+
+My scheduler picks tasks by priority first instead of trying to fill every available minute. For example, with 30 minutes, it will choose a high priority 20 minute walk over two low priority 15 minute tasks, even though the two smaller tasks would fill all 30 minutes.
+
 - Why is that tradeoff reasonable for this scenario?
+
+This is reasonable because a missed walk or missed medication is a bigger problem than a few unused minutes. It also keeps the plan easy to understand, and the scheduler lists any tasks it left out so the owner can decide what to do with them.
 
 ---
 
