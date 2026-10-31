@@ -78,18 +78,20 @@ Earlier in the same run, it also prints the warnings as the clashing tasks are a
 
 ```bash
 # Run the full test suite:
-pytest
+python3 -m pytest
 
-# Run with coverage:
-pytest --cov
+Covers task completion, sorting, filtering, conflict detection, recurring tasks, and daily planning.
+
+My Confidence Level in the systems reliability based on my test results: 🌟🌟🌟🌟🌟
+
 ```
 
 Sample test output:
 
 ```
-test_pawpal.py ...........................................               [100%]
+test_pawpal.py .............................................             [100%]
 
-============================== 43 passed in 0.03s ==============================
+============================== 45 passed in 0.05s ==============================
 ```
 
 ## 📐 Smarter Scheduling

@@ -45,6 +45,27 @@ def test_add_task_increases_pet_task_count():
     assert len(pet.get_tasks()) == 1
 
 
+# Empty schedules
+
+
+def test_pet_with_no_tasks_gives_empty_results():
+    owner, rex, mia = make_owner()
+
+    assert rex.get_tasks() == []
+    assert owner.scheduler.sort_by_time() == []
+    assert owner.scheduler.filter_tasks(pet_name="Rex") == []
+    assert owner.scheduler.find_conflicts() == []
+    assert owner.get_daily_plan().planned == []
+
+
+def test_owner_with_no_pets_gives_empty_results():
+    owner = Owner("Jenney")
+
+    assert owner.view_todays_tasks() == []
+    assert owner.scheduler.conflict_warnings() == []
+    assert owner.get_daily_plan().remaining == owner.available_minutes
+
+
 # Conflict detection
 
 
