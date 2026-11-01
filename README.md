@@ -79,12 +79,9 @@ Earlier in the same run, it also prints the warnings as the clashing tasks are a
 ```bash
 # Run the full test suite:
 python3 -m pytest
+```
 
 Covers task completion, sorting, filtering, conflict detection, recurring tasks, and daily planning.
-
-My Confidence Level in the systems reliability based on my test results: 🌟🌟🌟🌟🌟
-
-```
 
 Sample test output:
 
@@ -109,10 +106,28 @@ All scheduling logic lives in `pawpal_system.py`.
 
 Describe your app in numbered steps so a reader can follow along without watching a video:
 
-1. <!-- Describe this step -->
-2. <!-- Describe this step -->
-3. <!-- Describe this step -->
-4. <!-- Describe this step -->
-5. <!-- Add more steps as needed -->
+1. Run `streamlit run app.py`, enter the owner's name and minutes available today, and add a pet (e.g., Mochi, dog).
+2. Add a task with a time, duration, priority, and repeat setting (e.g., "Morning walk," 8:00 AM, daily, high). Check the auto-shift box to move it to the next free slot if the time is taken.
+3. Add a second task at the same time (e.g., "Breakfast," 8:00 AM). A conflict warning appears for same-pet or different-pet clashes.
+4. View the task list, sorted by time (priority breaks ties), and filter it by pet or status (To do / Done).
+5. Mark "Morning walk" done. Tomorrow's walk is created automatically.
+6. Click **Generate schedule** to see the priority-first plan that fits your minutes, the minutes used and left, and any tasks left out.
+7. Run `python3 main.py` to see the same behaviors in the terminal:
 
-**Screenshot or video** *(optional)*: <!-- Insert a screenshot or link to a demo video here -->
+```
+Adding tasks at the same time as existing ones:
+  ⚠️  Different pets (Mia & Rex): 'Brush fur' and 'Ear cleaning' both start at 03:00 PM
+  ⚠️  Same pet (Mia): 'Dinner' and 'Evening meds' both start at 05:00 PM
+
+Completed Breakfast; next one is Sun Nov 01 at 07:30 AM
+
+Rex's tasks still to do:
+[ ] 🟡 08:00 AM  Rex    Walk Rex              30 min
+[ ] 🔴 08:15 AM  Rex    Heartworm pill         5 min
+[ ] 🟢 03:00 PM  Rex    Ear cleaning          10 min
+[ ] 🟡 06:00 PM  Rex    Walk Rex              30 min
+[ ] 🟢 06:30 PM  Rex    Play fetch            20 min
+```
+
+<!-- **Screenshot or video** *(optional)*: <!-- Insert a screenshot or link to a demo video here -->
+

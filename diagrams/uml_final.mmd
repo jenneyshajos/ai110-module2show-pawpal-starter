@@ -1,0 +1,74 @@
+classDiagram
+    %% Derived (computed, not stored): Task.end_time, Scheduler.tasks (gathered from pets), DailyPlan.remaining
+
+    class Owner {
+        +String name
+        +int available_minutes
+        +List~Pet~ pets
+        +Scheduler scheduler
+        +add_pet(pet: Pet) void
+        +get_pets() List~Pet~
+        +get_all_tasks() List~Task~
+        +schedule(pet, description, task_type, time, duration_min, frequency, priority, auto_shift) Task
+        +schedule_walk(pet: Pet, time: datetime, duration_min: int) Task
+        +view_todays_tasks() List~Task~
+        +get_daily_plan() DailyPlan
+    }
+
+    class Pet {
+        +String name
+        +String species
+        +int age
+        +List~Task~ tasks
+        +add_task(task: Task) void
+        +get_tasks() List~Task~
+    }
+
+    class Task {
+        +String description
+        +String pet_name
+        +String task_type
+        +datetime scheduled_time
+        +int duration_min
+        +String frequency
+        +int priority
+        +bool completed
+        +datetime end_time
+        +overlaps(other: Task) bool
+        +mark_complete() Optional~Task~
+        +is_due_today() bool
+    }
+
+    class Scheduler {
+        +List~Pet~ pets
+        +List~Task~ tasks
+        +add_task(pet: Pet, task: Task, auto_shift: bool) Task
+        +schedule(pet, description, task_type, time, duration_min, frequency, priority, auto_shift) Task
+        +schedule_walk(pet: Pet, time: datetime, duration_min: int) Task
+        +complete_task(task: Task) Optional~Task~
+        +sort_by_time() List~Task~
+        +get_todays_tasks() List~Task~
+        +filter_tasks(pet_name, completed, task_type) List~Task~
+        +find_conflicts() List~tuple~
+        +conflict_warnings() List~String~
+        +check_conflict(task: Task) Optional~String~
+        +add_task_with_warning(pet: Pet, task: Task) Optional~String~
+        +next_free_slot(duration_min: int, after: datetime) datetime
+        +build_daily_plan(available_minutes: int) DailyPlan
+    }
+
+    class DailyPlan {
+        +int available
+        +List~Task~ planned
+        +List~Task~ skipped
+        +int used
+        +int remaining
+    }
+
+    Owner "1" o-- "*" Pet : owns
+    Owner "1" *-- "1" Scheduler : creates
+    Scheduler "1" --> "*" Pet : reads tasks from
+    Pet "1" *-- "*" Task : has
+    Scheduler ..> DailyPlan : builds
+    DailyPlan "1" --> "*" Task : planned / skipped
+    Task ..> Task : mark_complete() creates next
